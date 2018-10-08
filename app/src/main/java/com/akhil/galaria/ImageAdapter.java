@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.like.LikeButton;
+import com.like.OnLikeListener;
+
 import java.util.ArrayList;
 
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageHolder>{
@@ -45,6 +48,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageHolder>
     public class ImageHolder extends RecyclerView.ViewHolder{
         ImageView mImageIconHolder;
         TextView mImageDescriptionHolder;
+        LikeButton mHeartButton;
 
         private ImageData mEditImageData;
 
@@ -53,6 +57,37 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageHolder>
 
             mImageDescriptionHolder = itemView.findViewById(R.id.image_description_id);
             mImageIconHolder = itemView.findViewById(R.id.image_id);
+            mHeartButton = itemView.findViewById(R.id.heart_button);
+
+            mHeartButton.setOnLikeListener(new OnLikeListener() {
+                @Override
+                public void liked(LikeButton likeButton) {
+                    changeLikedStatus(true);
+                }
+
+                @Override
+                public void unLiked(LikeButton likeButton) {
+                    changeLikedStatus(false);
+                }
+            });
+
+        }
+
+        private void changeLikedStatus(boolean status){
+            // Get the current ImageData object by using the
+            // getAdapterPosition() method
+            mEditImageData = mImageDataArray.
+                    get(getAdapterPosition());
+
+            //Update the liked status of the image in question
+            mEditImageData.setLikedStatus(status);
+
+            //Update the current object in the ArrayList object too
+            mImageDataArray.set(getAdapterPosition(), mEditImageData);
+
+            //Notify the adapter about the changes
+            // made at the current position
+            notifyItemChanged(getAdapterPosition());
         }
     }
 }

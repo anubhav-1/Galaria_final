@@ -1,17 +1,18 @@
 package com.akhil.galaria;
 
 public class ImageData {
-    private String mImageTitle;
     private int mImageIcon;
     private String mImageDescription;
 
-    public String getImageTitle() {
-        return mImageTitle;
+    public boolean getLikedStatus() {
+        return mLikedStatus;
     }
 
-    public void setImageTitle(String mImageTitle) {
-        this.mImageTitle = mImageTitle;
+    public void setLikedStatus(boolean mLikedStatus) {
+        this.mLikedStatus = mLikedStatus;
     }
+
+    private boolean mLikedStatus;
 
     public int getImageIcon() {
         return mImageIcon;
@@ -28,4 +29,6 @@ public class ImageData {
     public void setImageDescription(String mImageDescription) {
         this.mImageDescription = mImageDescription;
     }
+
+
 }
