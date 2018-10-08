@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="image_description_array">
+        <item>An image displaying the process of creation of a wand.</item>
+        <item>A fine example of the variety of wands available in the market.</item>
+        <item>Phoenix tail wand; probable the one used by harry potter.</item>
+        <item>A single wand. not sure about the origin.</item>
+        <item>To be honest, I am not even sure if it really is wand.</item>
+        <item>Weird, that's all I can say…</item>
+    </string-array>
+
+    <integer-array name="image_icon_array">
+        <item>@drawable/creating</item>
+        <item>@drawable/multiple_wands</item>
+        <item>@drawable/phoenix_tail</item>
+        <item>@drawable/single_potter</item>
+        <item>@drawable/stick</item>
+        <item>@drawable/weird</item>
+    </integer-array>
+</resources>
