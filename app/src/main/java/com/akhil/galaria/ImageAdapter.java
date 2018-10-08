@@ -1,16 +1,23 @@
 package com.akhil.galaria;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.content.Context;
 
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageHolder>{
@@ -71,6 +78,26 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageHolder>
                     changeLikedStatus(false);
                 }
             });
+
+
+
+            mImageIconHolder.setOnClickListener(new ImageButton.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d("ID", " onclick "+ mImageIconHolder.getDrawable());
+                    Intent fullScreenIntent= new Intent(v.getContext(), FullScreenImageActivity.class);
+//                    System.out.println(mImageIconHolder);
+                    Uri uri = Uri.parse("android.resource://com.akhil.galaria/drawable/creating");
+                    try {
+                        InputStream stream = v.getContext().getContentResolver().openInputStream(uri);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    fullScreenIntent.setData(Uri.parse(String.valueOf(uri)));
+                    v.getContext().startActivity(fullScreenIntent);
+                }
+            });
+
 
         }
 
