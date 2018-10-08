@@ -39,6 +39,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageHolder>
                 currentImageData.getImageDescription());
         holder.mImageIconHolder.setImageResource(
                 currentImageData.getImageIcon());
+        holder.mHeartButton.setLiked(currentImageData.getLikedStatus());
     }
 
     @Override
