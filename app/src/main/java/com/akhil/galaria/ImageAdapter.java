@@ -2,6 +2,9 @@ package com.akhil.galaria;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,6 +19,7 @@ import android.content.Context;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -84,16 +88,26 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageHolder>
             mImageIconHolder.setOnClickListener(new ImageButton.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Drawable drawable_image= mImageIconHolder.getDrawable();
+
+                    Bitmap bitmap= ((BitmapDrawable)drawable_image).getBitmap();
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+                    byte[] b = baos.toByteArray();
+
+
                     Log.d("ID", " onclick "+ mImageIconHolder.getDrawable());
                     Intent fullScreenIntent= new Intent(v.getContext(), FullScreenImageActivity.class);
-//                    System.out.println(mImageIconHolder);
-                    Uri uri = Uri.parse("android.resource://com.akhil.galaria/drawable/creating");
-                    try {
-                        InputStream stream = v.getContext().getContentResolver().openInputStream(uri);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                    fullScreenIntent.setData(Uri.parse(String.valueOf(uri)));
+                    fullScreenIntent.putExtra("picture", b);
+
+
+//                    Uri uri = Uri.parse("android.resource://com.akhil.galaria/drawable/"+R.drawable.creating);
+//                    try {
+//                        InputStream stream = v.getContext().getContentResolver().openInputStream(uri);
+//                    } catch (FileNotFoundException e) {
+//                        e.printStackTrace();
+//                    }
+//                    fullScreenIntent.setData(Uri.parse(String.valueOf(uri)));
                     v.getContext().startActivity(fullScreenIntent);
                 }
             });
